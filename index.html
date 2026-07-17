@@ -329,7 +329,8 @@
         }
 
         // --- 全局变量与配置 ---
-        const CAKE_THEME = { bottom: "#FF69B4", top: "#FFB6C1", cream: "#FFFFFF" };
+        // const CAKE_THEME = { bottom: "#FF69B4", top: "#FFB6C1", cream: "#FFFFFF" };
+        const CAKE_THEME = { bottom: "#80ceff", top: "#82aede", cream: "#c5b5e3" };
         const VISUAL_CONFIG = { particleCount: IS_MOBILE ? 4000 : 7500, color: 0xff69b4, blowThreshold: 25, blowMaxDuration: 100 };
         const STATE = { INTRO: -1, IDLE: 0, COUNTDOWN: 1, CAKE: 2, BLOWING: 3, CELEBRATION: 4 };
         
@@ -777,8 +778,8 @@
             "        相逢的意义在于照亮彼此，谢谢你出现在我身边。",
             "        生日快乐，我只求你年年长安宁，岁岁多喜乐。",
             "",
-            { text: "你的朋友", align: "right" },
-            { text: "无忧", align: "right" }
+            "                                   你的朋友",
+            "                                   无忧"
         ];
 
         let typewriterGeneration = 0;
@@ -795,36 +796,22 @@
             let lineIndex = 0;
             let charIndex = 0;
             let currentChars = null;
-            let currentLineEl = null;
 
             function type() {
                 if (localGeneration !== typewriterGeneration) return;
                 if (lineIndex >= textArray.length) return;
                 const currentLine = textArray[lineIndex];
-                const isObject = typeof currentLine === 'object' && currentLine !== null;
-                const lineText = isObject ? currentLine.text : currentLine;
-
-                if (!currentChars) {
-                    currentChars = Array.from(lineText);
-                    currentLineEl = document.createElement('div');
-                    if (isObject && currentLine.align === 'right') {
-                        currentLineEl.style.textAlign = 'right';
-                    }
-                    if (lineText === '') {
-                        currentLineEl.innerHTML = '&nbsp;';
-                    }
-                    container.appendChild(currentLineEl);
-                }
+                if (!currentChars) currentChars = Array.from(currentLine);
 
                 if (charIndex < currentChars.length) {
-                    currentLineEl.textContent += currentChars[charIndex];
+                    container.innerHTML += currentChars[charIndex];
                     charIndex++;
                     setTimeout(type, speed);
                 } else {
+                    container.innerHTML += "<br>";
                     lineIndex++;
                     charIndex = 0;
                     currentChars = null;
-                    currentLineEl = null;
                     setTimeout(type, 300);
                 }
 
