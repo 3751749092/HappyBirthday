@@ -1,0 +1,5 @@
+.history/*
+.vscode/*
+index copy.html
+!./src/happy-birthday-155461.mp3
+!./src/icon.svg
